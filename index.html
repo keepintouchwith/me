@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>You can find me everywhere 🤷‍♂️</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  /* =============================================
+     🎨 EASY CUSTOMIZATION — EDIT HERE
+     ============================================= */
+
+  :root {
+    /* --- Profile --- */
+    --profile-name-line1: "SABBIR";           /* First part of name */
+    --profile-name-line2: "KHAN";             /* Second part (accent color) */
+    --profile-handle: "@yourhandle";
+    --profile-bio: "Welcome to my personal space on the internet 🌍 Here you can find all my social media profiles in one place and connect with me easily across different platforms. Let's connect and grow together 🚀✨";
+
+    /* --- Profile image: replace URL with your own image link --- */
+    --profile-image: url("./images/22.JPG");
+
+    /* --- Colors --- */
+    --bg-dark: #0a0a12;
+    --bg-card: #13131f;
+    --bg-card-hover: #1a1a2e;
+    --accent: #7c6af7;
+    --accent2: #f76a8a;
+    --name-color: #ffffff;
+    --name-accent-color: #7c6af7;
+    --handle-color: #7c6af7;
+    --text-body: #b0b0cc;
+    --text-label: #ffffff;
+    --border: rgba(255,255,255,0.07);
+
+    /* --- Footer --- */
+    --footer-text: "Made with ❤️ — All rights reserved";
+  }
+
+  /* =============================================
+     BASE STYLES
+     ============================================= */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    background: var(--bg-dark);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-body);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 16px 40px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Ambient glow blobs */
+  body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::before {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(124,106,247,0.18) 0%, transparent 70%);
+    top: -100px; right: -100px;
+  }
+  body::after {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(247,106,138,0.12) 0%, transparent 70%);
+    bottom: 0; left: -80px;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* =============================================
+     DARK MODE TOGGLE
+     ============================================= */
+  .theme-toggle {
+    position: fixed;
+    top: 20px; right: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100;
+    transition: background 0.2s;
+  }
+  .theme-toggle:hover { background: var(--bg-card-hover); }
+
+  /* =============================================
+     PROFILE SECTION
+     ============================================= */
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 36px;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .avatar-ring {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    margin-bottom: 18px;
+    box-shadow: 0 0 32px rgba(124,106,247,0.4);
+  }
+
+  /* --- To change photo: update --profile-image in :root above --- */
+  .avatar {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: var(--profile-image) center/cover no-repeat;
+    background-color: var(--bg-card);
+  }
+
+  .profile-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 6vw, 38px);
+    font-weight: 800;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .name-part1 { color: var(--name-color); }
+  .name-part2 { color: var(--name-accent-color); }
+
+  .handle {
+    font-size: 14px;
+    color: var(--handle-color);
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  .bio {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text-body);
+    max-width: 420px;
+    font-style: italic;
+  }
+
+  /* =============================================
+     DIVIDER
+     ============================================= */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 8px 0 28px;
+  }
+
+  /* =============================================
+     SOCIAL LINKS GRID
+     ============================================= */
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 18px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+
+  /* --- Social card --- */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 8px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-label);
+    transition: transform 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.6s ease both;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(124,106,247,0.08), rgba(247,106,138,0.04));
+    opacity: 0;
+    transition: opacity 0.25s;
+    border-radius: inherit;
+  }
+  .card:hover { transform: translateY(-4px); border-color: rgba(124,106,247,0.4); box-shadow: 0 8px 32px rgba(124,106,247,0.18); }
+  .card:hover::before { opacity: 1; }
+
+  .card-icon {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    position: relative;
+  }
+  /* Each icon can have its own brand background */
+  .card-icon img { width: 28px; height: 28px; object-fit: contain; }
+
+  .card-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  /* =============================================
+     FOOTER
+     ============================================= */
+  .footer {
+    margin-top: 40px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .footer-dots { display: flex; gap: 5px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .dot-1 { background: var(--accent2); }
+  .dot-2 { background: var(--accent); }
+
+  /* =============================================
+     ANIMATIONS
+     ============================================= */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card:nth-child(1)  { animation-delay: 0.05s; }
+  .card:nth-child(2)  { animation-delay: 0.10s; }
+  .card:nth-child(3)  { animation-delay: 0.15s; }
+  .card:nth-child(4)  { animation-delay: 0.20s; }
+  .card:nth-child(5)  { animation-delay: 0.25s; }
+  .card:nth-child(6)  { animation-delay: 0.30s; }
+  .card:nth-child(7)  { animation-delay: 0.35s; }
+  .card:nth-child(8)  { animation-delay: 0.40s; }
+  .card:nth-child(9)  { animation-delay: 0.45s; }
+  .card:nth-child(10) { animation-delay: 0.50s; }
+  .card:nth-child(11) { animation-delay: 0.55s; }
+  .card:nth-child(12) { animation-delay: 0.60s; }
+  .card:nth-child(13) { animation-delay: 0.65s; }
+
+  /* =============================================
+     LIGHT MODE
+     ============================================= */
+  body.light {
+    --bg-dark: #f0f0f8;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f5f5ff;
+    --border: rgba(0,0,0,0.08);
+    --name-color: #111;
+    --text-body: #555;
+    --text-label: #111;
+    background: var(--bg-dark);
+  }
+  body.light::before { background: radial-gradient(circle, rgba(124,106,247,0.10) 0%, transparent 70%); }
+  body.light::after  { background: radial-gradient(circle, rgba(247,106,138,0.08) 0%, transparent 70%); }
+
+  /* =============================================
+     RESPONSIVE
+     ============================================= */
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  }
+  @media (max-width: 340px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="document.body.classList.toggle('light')" title="Toggle theme">🌙</button>
+
+<div class="page">
+
+  <!-- ========== PROFILE ========== -->
+  <div class="profile">
+    <div class="avatar-ring">
+      <!--
+        🖼️ TO CHANGE PROFILE PHOTO:
+        Option A — Use a URL: update --profile-image in :root (top of <style>)
+        Option B — Use a local file: replace the background-image below
+      -->
+      <div class="avatar"></div>
+    </div>
+
+    <!--
+      ✏️ TO CHANGE NAME: edit the text inside .name-part1 and .name-part2
+    -->
+    <div class="profile-name">
+      <span class="name-part1">SABBIR </span><span class="name-part2">KHAN</span>
+    </div>
+
+    <!-- ✏️ TO CHANGE HANDLE: edit text below -->
+    <!-- <div class="handle">@yourhandle</div> -->
+
+    <!-- ✏️ TO CHANGE BIO: edit text below -->
+    <p class="bio">
+      Hi 👋<br> Welcome to my personal space on the internet 🌐 <br>Here you can find all my social media profiles in one place and connect with me easily across different platforms.I share my thoughts, creativity, and daily updates through my social channels.Feel free to explore and follow me wherever you like. <br>Let’s connect and grow together 🚀✨    </p>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-label">Connect With Me</div>
+
+  <!-- ========== SOCIAL LINKS GRID ==========
+    ✏️ TO CHANGE A LINK: update href="..."
+    ✏️ TO CHANGE AN ICON: replace the emoji or swap the <img> src
+    ✏️ TO CHANGE A LABEL: edit the text inside <span class="card-label">
+    ➕ TO ADD A CARD: copy any <a class="card"> block and paste it
+    ❌ TO REMOVE A CARD: delete the <a class="card"> block
+  -->
+  <div class="grid">
+
+    <a class="card" href="https://sabbir-programer.github.io/personal-portfolio/" target="_blank">
+      <div class="card-icon" style="background:#1877f215;">
+        <img src="./3037366.png" style="filter:invert(35%) sepia(100%) saturate(500%) hue-rotate(195deg);" alt="Facebook"/>
+      </div>
+      <span class="card-label">WebSite</span>
+    </a>
+
+    <a class="card" href="https://www.facebook.com/share/1EkJLPF3Mp/?mibextid=wwXIfr" target="_blank">
+      <div class="card-icon" style="background:#1877f215;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/facebook.svg" style="filter:invert(35%) sepia(100%) saturate(500%) hue-rotate(195deg);" alt="Facebook"/>
+      </div>
+      <span class="card-label">Facebook</span>
+    </a>
+
+    <a class="card" href="https://www.instagram.com/sabbir.aurora/" target="_blank">
+      <div class="card-icon" style="background:#e1306c15;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg" style="filter:invert(27%) sepia(80%) saturate(600%) hue-rotate(310deg);" alt="Instagram"/>
+      </div>
+      <span class="card-label">Instagram</span>
+    </a>
+
+    <a class="card" href="https://wa.me/8801926804028" target="_blank">
+      <div class="card-icon" style="background:#25d36615;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/whatsapp.svg" style="filter:invert(55%) sepia(80%) saturate(500%) hue-rotate(100deg);" alt="WhatsApp"/>
+      </div>
+      <span class="card-label">WhatsApp</span>
+    </a>
+
+    <a class="card" href="https://t.me/sabbir_khan15" target="_blank">
+      <div class="card-icon" style="background:#2ca5e015;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/telegram.svg" style="filter:invert(50%) sepia(80%) saturate(400%) hue-rotate(170deg);" alt="Telegram"/>
+      </div>
+      <span class="card-label">Telegram</span>
+    </a>
+
+    <a class="card" href="https://github.com/SABBIR-PROGRAMER" target="_blank">
+      <div class="card-icon" style="background:#ffffff10;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg" style="filter:invert(90%);" alt="GitHub"/>
+      </div>
+      <span class="card-label">GitHub</span>
+    </a>
+
+     <a class="card" href="https://x.com/sabbirkhancm?s=11" target="_blank">
+      <div class="card-icon" style="background:#ffffff10;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/x.svg" style="filter:invert(90%);" alt="X"/>
+      </div>
+      <span class="card-label">X (Twitter)</span>
+    </a>
+
+    <a class="card" href="https://discord.com/users/1397970059070017717" target="_blank">
+      <div class="card-icon" style="background:#5865f215;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/discord.svg" style="filter:invert(40%) sepia(80%) saturate(500%) hue-rotate(210deg);" alt="Discord"/>
+      </div>
+      <span class="card-label">Discord</span>
+    </a>
+
+     <a class="card" href="https://www.snapchat.com/add/sabbirk-khan?share_id=E85s-D3WQp-RPmHZ5J5yMQ&locale=en_US" target="_blank">
+      <div class="card-icon" style="background:#fffc0015;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/snapchat.svg" style="filter:invert(90%) sepia(80%) saturate(600%) hue-rotate(10deg);" alt="Snapchat"/>
+      </div>
+      <span class="card-label">Snapchat</span>
+    </a>
+
+     <a class="card" href="https://www.threads.com/@sabbir.aurora?igshid=NTc4MTIwNjQ2YQ==" target="_blank">
+      <div class="card-icon" style="background:#ffffff10;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/threads.svg" style="filter:invert(90%);" alt="Threads"/>
+      </div>
+      <span class="card-label">Threads</span>
+    </a>
+
+    <a class="card" href="https://linkedin.com/in/yourprofile" target="_blank">
+      <div class="card-icon" style="background:#0077b515;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/linkedin.svg" style="filter:invert(35%) sepia(100%) saturate(600%) hue-rotate(185deg);" alt="LinkedIn"/>
+      </div>
+      <span class="card-label">LinkedIn</span>
+    </a>
+
+    <a class="card" href="mailto:khansabbir6945@gmail.com" target="_blank">
+      <div class="card-icon" style="background:#ea433515;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/gmail.svg" style="filter:invert(30%) sepia(80%) saturate(600%) hue-rotate(340deg);" alt="Email"/>
+      </div>
+      <span class="card-label">Email</span>
+    </a>
+
+
+    <a class="card" href="yourprofile" target="_blank">
+      <div class="card-icon" style="background:#ff000015;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/youtube.svg" style="filter:invert(20%) sepia(100%) saturate(800%) hue-rotate(340deg);" alt="YouTube"/>
+      </div>
+      <span class="card-label">YouTube</span>
+    </a>
+
+    <a class="card" href="yourprofile" target="_blank">
+      <div class="card-icon" style="background:#ffffff10;">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tiktok.svg" style="filter:invert(90%);" alt="TikTok"/>
+      </div>
+      <span class="card-label">TikTok</span>
+    </a>
+
+  </div><!-- /grid -->
+
+  <!-- ========== FOOTER ========== -->
+  <div class="footer">
+    <div class="footer-dots">
+      <div class="dot dot-1"></div>
+      <div class="dot dot-2"></div>
+    </div>
+    <!-- ✏️ TO CHANGE FOOTER TEXT: edit below -->
+    Made with ❤️ — All rights SABBIR KHAN
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
